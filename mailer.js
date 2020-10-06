@@ -1,7 +1,7 @@
 const express = require("express");
 const router = new express.Router();
 const nodemailer = require("nodemailer");
-const contactAddress = process.env.CONTACT_ADDRESS || "ilyass1.ib@gmail.com";
+const contactAddress = process.env.CONTACT_ADDRESS;
 console.log(process.env.GMAIL_ADDRESS, process.env.GMAIL_PASSWORD);
 const mailer = nodemailer.createTransport({
   service: "Gmail",
