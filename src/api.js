@@ -1,7 +1,13 @@
 const express = require("express");
+const bodyParser = require("body-parser");
+const serverless = require("serverless-http");
+const cors = require("cors");
+const app = express();
 const router = new express.Router();
 const nodemailer = require("nodemailer");
 const contactAddress = process.env.CONTACT_ADDRESS;
+app.use(bodyParser.json());
+app.use(cors());
 
 const mailer = nodemailer.createTransport({
   service: "Gmail",
@@ -26,4 +32,7 @@ router.post("/contact", async (req, res) => {
     .catch((e) => res.json({ error: e }));
 });
 
-module.exports = router;
+app.use("/.netlify/functions/api", router);
+
+module.exports = app;
+module.exports.handler = serverless(app);
